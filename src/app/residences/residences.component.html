@@ -1,0 +1,34 @@
+<!-- Champ de recherche -->
+<input type="text" [(ngModel)]="searchQuery" placeholder="Search by address..." class="search-input">
+
+<div class="residence-list">
+  <div *ngFor="let residence of filteredResidences" class="residence-card">
+    <img [src]="residence.image" alt="image of {{ residence.name }}" class="residence-image">
+    <div class="residence-info">
+      <h3>{{ residence.name }}</h3>
+      <p>{{ residence.address }}</p>
+      
+      <!-- Bouton Like -->
+      <button (click)="toggleFavorite(residence)">
+        {{ residence.isFavorite ? 'Remove from Favorites' : 'Like' }}
+      </button>
+
+      <!-- Bouton Show Location -->
+      <button (click)="showLocation(residence.address)">Show Location</button>
+      
+      <!-- Affichage du statut avec icône -->
+      <p>
+        <span [ngClass]="{
+          'text-success': residence.status === 'Disponible',
+          'text-warning': residence.status === 'En Construction',
+          'text-danger': residence.status === 'Vendu'
+        }">
+          <i *ngIf="residence.status === 'Disponible'" class="bi bi-check-circle"></i>
+          <i *ngIf="residence.status === 'En Construction'" class="bi bi-house-door"></i>
+          <i *ngIf="residence.status === 'Vendu'" class="bi bi-x-circle"></i>
+          {{ residence.status }}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
