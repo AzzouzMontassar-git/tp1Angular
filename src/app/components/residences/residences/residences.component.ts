@@ -22,31 +22,25 @@ export class ResidencesComponent {
   searchQuery: string = '';
 
   // Fonction pour filtrer les résidences
-  get filteredResidences() {
+  get filteredResidences(): Residence[] {
+    const query = this.searchQuery?.trim().toLowerCase() || ''; // Gérer les cas vides
     return this.listResidences.filter(residence =>
-      residence.address.toLowerCase().includes(this.searchQuery.toLowerCase())
+      residence.address.toLowerCase().includes(query)
     );
   }
 
   // Fonction pour ajouter ou retirer une résidence des favoris
   toggleFavorite(residence: Residence) {
+    residence.isFavorite = !residence.isFavorite;
     if (residence.isFavorite) {
-      // Retirer des favoris
-      this.favoriteResidences = this.favoriteResidences.filter(r => r.id !== residence.id);
-      residence.isFavorite = false;
-    } else {
-      // Ajouter aux favoris
       this.favoriteResidences.push(residence);
-      residence.isFavorite = true;
+    } else {
+      this.favoriteResidences = this.favoriteResidences.filter(r => r.id !== residence.id);
     }
   }
 
   // Fonction pour afficher l'adresse de la résidence
   showLocation(address: string): void {
-    if (address === "inconnu") {
-      alert("L'adresse de cette résidence est inconnue.");
-    } else {
-      alert("Adresse de la résidence : " + address);
-    }
+    alert(address === "inconnu" ? "L'adresse de cette résidence est inconnue." : "Adresse de la résidence : " + address);
   }
 }

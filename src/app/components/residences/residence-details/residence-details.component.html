@@ -1,0 +1,11 @@
+<div class="residence-container">
+  <div class="residence-details">
+    <img class="residence-image" [src]="residence.image" alt="residence">
+    <div class="residence-info">
+      <h2 class="residence-name">{{ residence.name }}</h2>
+      <p class="residence-address">{{ residence.address }}</p>
+      <p class="residence-status">{{ residence.status }}</p>
+      <button class="btn-primary" (click)="goToNextResidence()">Suivante</button>
+    </div>
+  </div>
+</div>
